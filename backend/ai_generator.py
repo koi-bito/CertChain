@@ -14,7 +14,7 @@ def generate_certificate_text(
     """
     Uses GPT-4o-mini to generate a professional certificate body text.
     The SHA-256 hash of this text (combined with other fields) is what
-    gets anchored on-chain — making it tamper-proof.
+    gets anchored on-chain - making it tamper-proof.
     """
     prompt = f"""
     Generate a formal certificate of completion text for the following:

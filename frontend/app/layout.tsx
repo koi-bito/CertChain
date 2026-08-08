@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CertChain — Blockchain Credential Verification",
+  title: "CertChain - Blockchain Credential Verification",
   description:
     "Issue and verify tamper-proof credentials anchored on Ethereum. Trustless, instant, permanent.",
 };

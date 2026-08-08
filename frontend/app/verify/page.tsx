@@ -69,7 +69,7 @@ function VerifyContent() {
   const formatDate = (iso?: string) =>
     iso
       ? new Date(iso).toLocaleDateString("en-IN", { dateStyle: "long" })
-      : "—";
+      : "-";
 
   return (
     <div className="scene">
@@ -109,7 +109,7 @@ function VerifyContent() {
             className="hero-desc"
             style={{ marginBottom: 32, maxWidth: "none" }}
           >
-            Paste a credential hash. We query Ethereum directly — no trust, no
+            Paste a credential hash. We query Ethereum directly - no trust, no
             login, no middlemen.
           </p>
 

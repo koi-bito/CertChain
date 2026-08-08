@@ -55,7 +55,7 @@ async def issue_credential(req: IssueRequest, db: Session = Depends(get_db)):
         req.duration_weeks, req.skills_covered
     )
 
-    # Metadata URI — use backend URL; swap for IPFS in production
+    # Metadata URI - use backend URL; swap for IPFS in production
     metadata_uri = f"https://certchain.app/api/credentials/{credential_hash}/metadata"
 
     # Write to blockchain (blocks ~15s on Sepolia)

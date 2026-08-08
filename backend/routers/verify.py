@@ -35,7 +35,7 @@ async def verify_credential(credential_hash: str, db: Session = Depends(get_db))
     if not credential_hash.startswith("0x") or len(credential_hash) != 66:
         raise HTTPException(status_code=400, detail="Invalid credential hash format. Expected 0x + 64 hex chars.")
 
-    # Blockchain is the source of truth — no gas required for reads
+    # Blockchain is the source of truth - no gas required for reads
     chain_result = verify_on_chain(credential_hash)
 
     if not chain_result["valid"]:

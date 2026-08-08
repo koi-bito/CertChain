@@ -1,4 +1,4 @@
-# CertChain — Blockchain Credential Verification
+# CertChain - Blockchain Credential Verification
 
 > Tamper-proof credential issuance and verification anchored on Ethereum Sepolia testnet.
 
@@ -8,12 +8,12 @@
 
 ## What It Does
 
-Fake internship letters and academic certificates are rampant. CertChain anchors a SHA-256 hash of every credential on the Ethereum blockchain. Verification becomes **trustless, instant, and permanent** — anyone can verify without calling the issuer.
+Fake internship letters and academic certificates are rampant. CertChain anchors a SHA-256 hash of every credential on the Ethereum blockchain. Verification becomes **trustless, instant, and permanent** - anyone can verify without calling the issuer.
 
 **Who uses it:**
-- **Issuers** (companies, colleges) — issue a credential, get a verification link
-- **Holders** (students) — share the link on their resume
-- **Verifiers** (recruiters) — paste the credential hash, get instant on-chain proof
+- **Issuers** (companies, colleges) - issue a credential, get a verification link
+- **Holders** (students) - share the link on their resume
+- **Verifiers** (recruiters) - paste the credential hash, get instant on-chain proof
 
 ---
 
@@ -161,9 +161,9 @@ python demo.py
 
 ## Smart Contract (Sepolia)
 
-Contract address: *(update after deployment)*
+Contract address: `0xCbF2ad856f7CDf2B6AeB42Cf3EB061c79e7ff5dd`
 
-[View on Etherscan](https://sepolia.etherscan.io/address/YOUR_CONTRACT_ADDRESS)
+[View on Etherscan](https://sepolia.etherscan.io/address/0xCbF2ad856f7CDf2B6AeB42Cf3EB061c79e7ff5dd)
 
 ---
 

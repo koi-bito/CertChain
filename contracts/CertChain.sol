@@ -49,7 +49,7 @@ contract CertChain {
         emit CredentialIssued(credentialHash, msg.sender, block.timestamp, metadataURI);
     }
 
-    // Verify — returns all info, free (read-only)
+    // Verify - returns all info, free (read-only)
     function verifyCredential(bytes32 credentialHash)
         external
         view
@@ -71,7 +71,7 @@ contract CertChain {
         );
     }
 
-    // Revoke — only original issuer can revoke
+    // Revoke - only original issuer can revoke
     function revokeCredential(bytes32 credentialHash) external {
         require(credentials[credentialHash].exists, "Credential does not exist");
         require(credentials[credentialHash].issuer == msg.sender, "Not the issuer");

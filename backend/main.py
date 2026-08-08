@@ -5,7 +5,7 @@ from database import init_db
 
 app = FastAPI(
     title="CertChain API",
-    description="Blockchain-anchored credential verification — issue, verify, and revoke credentials on Ethereum Sepolia.",
+    description="Blockchain-anchored credential verification - issue, verify, and revoke credentials on Ethereum Sepolia.",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc",

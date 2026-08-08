@@ -39,7 +39,7 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════════
-   SCENE — full page wrapper with layered bg
+   SCENE - full page wrapper with layered bg
    ═══════════════════════════════════════════════ */
 .scene {
   min-height: 100vh;
@@ -87,7 +87,7 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════════
-   TOPBAR — minimal, left-aligned
+   TOPBAR - minimal, left-aligned
    ═══════════════════════════════════════════════ */
 .topbar {
   position: fixed;
@@ -160,7 +160,7 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════════
-   LAYOUT — asymmetric two-column hero
+   LAYOUT - asymmetric two-column hero
    ═══════════════════════════════════════════════ */
 .layout {
   position: relative;
@@ -208,7 +208,7 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════════
-   HERO TEXT — left side
+   HERO TEXT - left side
    ═══════════════════════════════════════════════ */
 .hero-tag {
   display: inline-flex;
@@ -288,7 +288,7 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════════
-   FORM PANEL — right side, layered card
+   FORM PANEL - right side, layered card
    ═══════════════════════════════════════════════ */
 .panel {
   background: var(--black-card);
@@ -571,7 +571,7 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════════
-   SINGLE-COLUMN LAYOUT — verify page
+   SINGLE-COLUMN LAYOUT - verify page
    ═══════════════════════════════════════════════ */
 .layout-center {
   position: relative;

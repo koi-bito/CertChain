@@ -80,7 +80,7 @@ export default function IssuePage() {
 
       {/* ── Two-column layout ──────────────────── */}
       <div className="layout">
-        {/* Left — hero text */}
+        {/* Left - hero text */}
         <div className="layout-left">
           <div className="hero-tag">
             <span className="hero-tag-dot" />
@@ -97,7 +97,7 @@ export default function IssuePage() {
 
           <p className="hero-desc">
             Fill the form, our AI writes the certificate text, we hash it and
-            anchor it permanently on Ethereum. Anyone can verify — no login, no
+            anchor it permanently on Ethereum. Anyone can verify - no login, no
             trust required.
           </p>
 
@@ -117,7 +117,7 @@ export default function IssuePage() {
           </div>
         </div>
 
-        {/* Right — form panel */}
+        {/* Right - form panel */}
         <div className="layout-right">
           <div className="panel">
             <div className="panel-header">

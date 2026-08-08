@@ -4,7 +4,7 @@ import json
 import os
 import hashlib
 
-# Load ABI — copy from artifacts/contracts/CertChain.sol/CertChain.json after `npx hardhat compile`
+# Load ABI - copy from artifacts/contracts/CertChain.sol/CertChain.json after `npx hardhat compile`
 ABI_PATH = os.path.join(os.path.dirname(__file__), "CertChain_ABI.json")
 with open(ABI_PATH) as f:
     CONTRACT_ABI = json.load(f)
@@ -64,7 +64,7 @@ def issue_on_chain(credential_hash: str, metadata_uri: str) -> str:
 
 def verify_on_chain(credential_hash: str) -> dict:
     """
-    Pure read call — no gas, instant.
+    Pure read call - no gas, instant.
     Returns verification result directly from the blockchain.
     """
     hash_bytes = bytes.fromhex(credential_hash[2:])
