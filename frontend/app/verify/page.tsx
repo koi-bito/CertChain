@@ -37,9 +37,17 @@ function VerifyContent() {
       setResult(res.data);
     } catch (e: any) {
       if (e.response?.status === 400) {
-        setError("Invalid hash format. Must be 0x followed by 64 hex characters.");
+        setError(
+          "Invalid hash format. Must be 0x followed by 64 hex characters."
+        );
       } else {
-        setResult({ valid: false, revoked: false, message: "❌ Error fetching from blockchain.", issuer_address: "", etherscan_url: "" });
+        setResult({
+          valid: false,
+          revoked: false,
+          message: "❌ Error reaching blockchain.",
+          issuer_address: "",
+          etherscan_url: "",
+        });
       }
     } finally {
       setLoading(false);
@@ -52,62 +60,81 @@ function VerifyContent() {
 
   const boxClass = result
     ? result.valid
-      ? "success"
+      ? "ok"
       : result.revoked
-      ? "warning"
-      : "error"
+      ? "warn"
+      : "fail"
     : "";
 
   const formatDate = (iso?: string) =>
-    iso ? new Date(iso).toLocaleDateString("en-IN", { dateStyle: "long" }) : "—";
+    iso
+      ? new Date(iso).toLocaleDateString("en-IN", { dateStyle: "long" })
+      : "—";
 
   return (
-    <div className="page-wrapper">
-      {/* Nav */}
-      <nav className="nav">
-        <div className="nav-inner">
-          <Link href="/" className="nav-logo">
-            <div className="nav-logo-icon">⛓</div>
-            CertChain
+    <div className="scene">
+      <div className="scene-accent" />
+
+      {/* ── Topbar ─────────────────────────────── */}
+      <nav className="topbar">
+        <Link href="/" className="topbar-brand">
+          <div className="topbar-mark">⛓</div>
+          <span className="topbar-name">
+            Cert<span>Chain</span>
+          </span>
+        </Link>
+        <div className="topbar-nav">
+          <Link href="/" className="topbar-link">
+            Issue
           </Link>
-          <div className="nav-links">
-            <Link href="/" className="nav-link">Issue</Link>
-            <Link href="/verify" className="nav-link active">Verify</Link>
-          </div>
+          <Link href="/verify" className="topbar-link active">
+            Verify
+          </Link>
         </div>
       </nav>
 
-      <main className="main">
-        <div className="container">
-          {/* Header */}
-          <div className="page-header">
-            <div className="badge">🔍 Trustless Verification</div>
-            <h1 className="page-title">Verify a Credential</h1>
-            <p className="page-subtitle">
-              Paste a credential hash below. We query Ethereum directly —
-              no trust required, no login needed.
-            </p>
+      {/* ── Centered layout ────────────────────── */}
+      <div className="layout-center">
+        <div className="center-content">
+          <div className="hero-tag" style={{ marginBottom: 20 }}>
+            <span className="hero-tag-dot" />
+            Trustless Verification
           </div>
 
-          {/* Search */}
-          <div className="card">
-            <p className="section-label">Credential Hash</p>
-            <div className="form-group">
+          <h1 className="hero-title" style={{ marginBottom: 12 }}>
+            Verify a <span className="highlight">credential</span>
+          </h1>
+
+          <p
+            className="hero-desc"
+            style={{ marginBottom: 32, maxWidth: "none" }}
+          >
+            Paste a credential hash. We query Ethereum directly — no trust, no
+            login, no middlemen.
+          </p>
+
+          <div className="panel">
+            <div className="panel-header">
+              Credential Hash <span className="panel-header-line" />
+            </div>
+
+            <div className="field">
               <input
                 id="hash-input"
                 type="text"
-                className="form-input mono"
+                className="field-input mono"
                 placeholder="0x..."
                 value={hash}
                 onChange={(e) => setHash(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && verify(hash)}
               />
             </div>
+
             <button
               id="verify-btn"
               onClick={() => verify(hash)}
               disabled={loading || !hash}
-              className="btn btn-primary btn-full"
+              className="btn btn-red btn-full"
             >
               {loading ? (
                 <>
@@ -118,73 +145,73 @@ function VerifyContent() {
                 "Verify on Ethereum →"
               )}
             </button>
-          </div>
 
-          {/* Error */}
-          {error && <p className="error-text">⚠ {error}</p>}
+            {error && <p className="error-text">⚠ {error}</p>}
 
-          {/* Result */}
-          {result && (
-            <div className={`result-box ${boxClass}`}>
-              <p className="result-title">{result.message}</p>
+            {result && (
+              <div className={`result ${boxClass}`}>
+                <p className="result-title">{result.message}</p>
 
-              {result.holder_name && (
-                <div className="result-row">
-                  <div className="result-item">
-                    <strong>Holder</strong>
-                    <span>{result.holder_name}</span>
-                  </div>
-                  <div className="result-item">
-                    <strong>Course</strong>
-                    <span>{result.course_title}</span>
-                  </div>
-                  <div className="result-item">
-                    <strong>Issuer</strong>
-                    <span>{result.issuer_name}</span>
-                  </div>
-                  <div className="result-item">
-                    <strong>Issued</strong>
-                    <span>{formatDate(result.issued_at)}</span>
-                  </div>
-                  {result.certificate_text && (
+                {result.holder_name && (
+                  <div className="result-row">
                     <div className="result-item">
-                      <strong>Certificate</strong>
-                      <span style={{ fontStyle: "italic" }}>{result.certificate_text}</span>
+                      <strong>Holder</strong>
+                      <span>{result.holder_name}</span>
                     </div>
-                  )}
-                  <div className="divider" />
-                  <div className="result-item">
-                    <strong>Issuer Addr</strong>
-                    <span className="mono">{result.issuer_address}</span>
+                    <div className="result-item">
+                      <strong>Course</strong>
+                      <span>{result.course_title}</span>
+                    </div>
+                    <div className="result-item">
+                      <strong>Issuer</strong>
+                      <span>{result.issuer_name}</span>
+                    </div>
+                    <div className="result-item">
+                      <strong>Issued</strong>
+                      <span>{formatDate(result.issued_at)}</span>
+                    </div>
+                    {result.certificate_text && (
+                      <div className="result-item">
+                        <strong>Certificate</strong>
+                        <span style={{ fontStyle: "italic", opacity: 0.85 }}>
+                          {result.certificate_text}
+                        </span>
+                      </div>
+                    )}
+                    <div className="divider" />
+                    <div className="result-item">
+                      <strong>Issuer Addr</strong>
+                      <span className="mono">{result.issuer_address}</span>
+                    </div>
+                    {result.tx_hash && (
+                      <a
+                        href={`https://sepolia.etherscan.io/tx/${result.tx_hash}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="result-link"
+                        id="etherscan-link"
+                      >
+                        → View transaction on Etherscan ↗
+                      </a>
+                    )}
                   </div>
-                  {result.tx_hash && (
-                    <a
-                      href={`https://sepolia.etherscan.io/tx/${result.tx_hash}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="result-link"
-                      id="etherscan-link"
-                    >
-                      → View transaction on Etherscan ↗
-                    </a>
-                  )}
-                </div>
-              )}
+                )}
 
-              {!result.holder_name && result.etherscan_url && (
-                <a
-                  href={result.etherscan_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="result-link"
-                >
-                  → View contract on Etherscan ↗
-                </a>
-              )}
-            </div>
-          )}
+                {!result.holder_name && result.etherscan_url && (
+                  <a
+                    href={result.etherscan_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="result-link"
+                  >
+                    → View contract on Etherscan ↗
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

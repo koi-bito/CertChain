@@ -25,6 +25,9 @@ export default function IssuePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const update = (key: string, val: string) =>
+    setForm((p) => ({ ...p, [key]: val }));
+
   const handleSubmit = async () => {
     setLoading(true);
     setError("");
@@ -40,7 +43,9 @@ export default function IssuePage() {
       });
       setResult(res.data);
     } catch (e: any) {
-      setError(e.response?.data?.detail || "Something went wrong. Is the backend running?");
+      setError(
+        e.response?.data?.detail || "Something went wrong. Is the backend running?"
+      );
     } finally {
       setLoading(false);
     }
@@ -52,77 +57,148 @@ export default function IssuePage() {
     .filter(Boolean);
 
   return (
-    <div className="page-wrapper">
-      {/* Nav */}
-      <nav className="nav">
-        <div className="nav-inner">
-          <Link href="/" className="nav-logo">
-            <div className="nav-logo-icon">⛓</div>
-            CertChain
+    <div className="scene">
+      <div className="scene-accent" />
+
+      {/* ── Topbar ─────────────────────────────── */}
+      <nav className="topbar">
+        <Link href="/" className="topbar-brand">
+          <div className="topbar-mark">⛓</div>
+          <span className="topbar-name">
+            Cert<span>Chain</span>
+          </span>
+        </Link>
+        <div className="topbar-nav">
+          <Link href="/" className="topbar-link active">
+            Issue
           </Link>
-          <div className="nav-links">
-            <Link href="/" className="nav-link active">Issue</Link>
-            <Link href="/verify" className="nav-link">Verify</Link>
-          </div>
+          <Link href="/verify" className="topbar-link">
+            Verify
+          </Link>
         </div>
       </nav>
 
-      <main className="main">
-        <div className="container">
-          {/* Header */}
-          <div className="page-header">
-            <div className="badge">⚡ Ethereum Sepolia</div>
-            <h1 className="page-title">Issue a Credential</h1>
-            <p className="page-subtitle">
-              Generate AI-written certificate text, anchor its hash on Ethereum,
-              and get a permanent, tamper-proof verification link.
-            </p>
+      {/* ── Two-column layout ──────────────────── */}
+      <div className="layout">
+        {/* Left — hero text */}
+        <div className="layout-left">
+          <div className="hero-tag">
+            <span className="hero-tag-dot" />
+            Ethereum Sepolia · Live
           </div>
 
-          {/* How it works */}
-          <div className="steps">
-            <div className="step">
-              <span className="step-num">1</span>Fill the form
+          <h1 className="hero-title">
+            Issue tamper-proof
+            <br />
+            <span className="highlight">credentials</span> on
+            <br />
+            the blockchain.
+          </h1>
+
+          <p className="hero-desc">
+            Fill the form, our AI writes the certificate text, we hash it and
+            anchor it permanently on Ethereum. Anyone can verify — no login, no
+            trust required.
+          </p>
+
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <div className="hero-stat-value">~15s</div>
+              <div className="hero-stat-label">Issuance time</div>
             </div>
-            <div className="step">
-              <span className="step-num">2</span>AI writes certificate
+            <div className="hero-stat">
+              <div className="hero-stat-value">$0</div>
+              <div className="hero-stat-label">Verification cost</div>
             </div>
-            <div className="step">
-              <span className="step-num">3</span>Hash anchored on-chain
+            <div className="hero-stat">
+              <div className="hero-stat-value">∞</div>
+              <div className="hero-stat-label">On-chain permanence</div>
             </div>
           </div>
+        </div>
 
-          {/* Form */}
-          <div className="card">
-            <p className="section-label">Credential Details</p>
+        {/* Right — form panel */}
+        <div className="layout-right">
+          <div className="panel">
+            <div className="panel-header">
+              New Credential <span className="panel-header-line" />
+            </div>
 
-            {[
-              ["Holder Name", "holder_name", "text", "e.g. Kunal Aggarwal"],
-              ["Holder Email", "holder_email", "email", "e.g. kunal@example.com"],
-              ["Issuing Organization", "issuer_name", "text", "e.g. VIT Bhopal University"],
-              ["Course / Program Title", "course_title", "text", "e.g. Machine Learning Fundamentals"],
-              ["Duration (weeks)", "duration_weeks", "number", "e.g. 8"],
-              ["Skills Covered (comma-separated)", "skills_covered", "text", "e.g. PyTorch, scikit-learn, Neural Networks"],
-            ].map(([label, key, type, placeholder]) => (
-              <div className="form-group" key={key}>
-                <label className="form-label">{label}</label>
+            <div className="field">
+              <label className="field-label">Holder Name</label>
+              <input
+                id="holder_name"
+                className="field-input"
+                placeholder="e.g. Kunal Aggarwal"
+                value={form.holder_name}
+                onChange={(e) => update("holder_name", e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <label className="field-label">Holder Email</label>
+              <input
+                id="holder_email"
+                type="email"
+                className="field-input"
+                placeholder="e.g. kunal@example.com"
+                value={form.holder_email}
+                onChange={(e) => update("holder_email", e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <label className="field-label">Issuing Organization</label>
+              <input
+                id="issuer_name"
+                className="field-input"
+                placeholder="e.g. VIT Bhopal University"
+                value={form.issuer_name}
+                onChange={(e) => update("issuer_name", e.target.value)}
+              />
+            </div>
+
+            <div className="field">
+              <label className="field-label">Course / Program</label>
+              <input
+                id="course_title"
+                className="field-input"
+                placeholder="e.g. Machine Learning Fundamentals"
+                value={form.course_title}
+                onChange={(e) => update("course_title", e.target.value)}
+              />
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "12px" }}>
+              <div className="field">
+                <label className="field-label">Weeks</label>
                 <input
-                  id={key}
-                  type={type}
-                  className="form-input"
-                  placeholder={placeholder}
-                  value={(form as any)[key]}
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, [key]: e.target.value }))
-                  }
+                  id="duration_weeks"
+                  type="number"
+                  className="field-input"
+                  placeholder="8"
+                  value={form.duration_weeks}
+                  onChange={(e) => update("duration_weeks", e.target.value)}
                 />
               </div>
-            ))}
+              <div className="field">
+                <label className="field-label">Skills (comma-separated)</label>
+                <input
+                  id="skills_covered"
+                  className="field-input"
+                  placeholder="PyTorch, scikit-learn, NNs"
+                  value={form.skills_covered}
+                  onChange={(e) => update("skills_covered", e.target.value)}
+                />
+              </div>
+            </div>
 
             {skills.length > 0 && (
-              <div className="tag-list">
+              <div className="tags">
                 {skills.map((s) => (
-                  <span className="tag" key={s}>{s}</span>
+                  <span className="tag" key={s}>
+                    {s}
+                  </span>
                 ))}
               </div>
             )}
@@ -133,53 +209,49 @@ export default function IssuePage() {
               id="issue-btn"
               onClick={handleSubmit}
               disabled={loading}
-              className="btn btn-primary btn-full"
+              className="btn btn-red btn-full"
             >
               {loading ? (
                 <>
                   <div className="spinner" />
-                  Issuing on blockchain… (~15s)
+                  Writing to Sepolia… ~15s
                 </>
               ) : (
                 "Issue Credential →"
               )}
             </button>
-          </div>
 
-          {/* Error */}
-          {error && (
-            <p className="error-text">⚠ {error}</p>
-          )}
+            {error && <p className="error-text">⚠ {error}</p>}
 
-          {/* Success */}
-          {result && (
-            <div className="result-box success">
-              <p className="result-title">✅ Credential Issued!</p>
-              <div className="result-row">
-                <div className="result-item">
-                  <strong>Hash</strong>
-                  <span className="mono">{result.credential_hash}</span>
+            {result && (
+              <div className="result ok">
+                <p className="result-title">✅ Credential anchored on-chain</p>
+                <div className="result-row">
+                  <div className="result-item">
+                    <strong>Hash</strong>
+                    <span className="mono">{result.credential_hash}</span>
+                  </div>
+                  <div className="result-item">
+                    <strong>TX</strong>
+                    <span className="mono">{result.tx_hash}</span>
+                  </div>
+                  <div className="result-item">
+                    <strong>Certificate</strong>
+                    <span>{result.certificate_text}</span>
+                  </div>
                 </div>
-                <div className="result-item">
-                  <strong>TX Hash</strong>
-                  <span className="mono">{result.tx_hash}</span>
-                </div>
-                <div className="result-item">
-                  <strong>Certificate</strong>
-                  <span>{result.certificate_text}</span>
-                </div>
+                <a
+                  href={`/verify?id=${result.credential_hash}`}
+                  className="result-link"
+                  id="verify-link"
+                >
+                  → Verify this credential
+                </a>
               </div>
-              <a
-                href={`/verify?id=${result.credential_hash}`}
-                className="result-link"
-                id="verify-link"
-              >
-                → Verify this credential
-              </a>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
